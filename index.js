@@ -26,6 +26,11 @@ async function run() {
 
     const database = client.db("motoMaze");
     const bikeCollection = database.collection("bikes");
+
+    app.get("/bikes", async (req, res) => {
+      const bikes = await bikeCollection.find({}).toArray();
+      res.send(bikes);
+    });
   } finally {
     // await client.close();
   }
