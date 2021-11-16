@@ -40,7 +40,7 @@ async function run() {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
 
-      const result = await tourCollection.findOne(query);
+      const result = await bikeCollection.findOne(query);
       console.log(result);
 
       res.json(result);
