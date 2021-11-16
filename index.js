@@ -3,6 +3,8 @@ const { MongoClient } = require("mongodb");
 const cors = require("cors");
 require("dotenv").config();
 
+const ObjectId = require("mongodb").ObjectId;
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -27,9 +29,21 @@ async function run() {
     const database = client.db("motoMaze");
     const bikeCollection = database.collection("bikes");
 
+    // get all bikes
     app.get("/bikes", async (req, res) => {
       const bikes = await bikeCollection.find({}).toArray();
       res.send(bikes);
+    });
+
+    // get specific bike
+    app.get("/bikes/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+
+      const result = await tourCollection.findOne(query);
+      console.log(result);
+
+      res.json(result);
     });
   } finally {
     // await client.close();
