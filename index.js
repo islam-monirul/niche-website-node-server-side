@@ -28,6 +28,7 @@ async function run() {
 
     const database = client.db("motoMaze");
     const bikeCollection = database.collection("bikes");
+    const usersCollection = database.collection("users");
 
     // get all bikes
     app.get("/bikes", async (req, res) => {
@@ -43,6 +44,31 @@ async function run() {
       const result = await bikeCollection.findOne(query);
       console.log(result);
 
+      res.json(result);
+    });
+
+    // api for storing user to database
+    app.post("/adduser", async (req, res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      console.log(result);
+      res.json(result);
+    });
+
+    app.put("/adduser", async (req, res) => {
+      const user = req.body;
+      const filter = { email: user.email };
+
+      const options = { upsert: true };
+
+      const updateDoc = { $set: user };
+
+      const result = await usersCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      console.log(result);
       res.json(result);
     });
   } finally {
