@@ -43,6 +43,18 @@ async function run() {
       res.send(orders);
     });
 
+    // get all orders of a customer
+    app.get("/orders/:email", async (req, res) => {
+      const email = req.params.email;
+
+      const query = { email: email };
+
+      const result = await ordersCollection.find(query).toArray();
+      console.log(result);
+
+      res.send(result);
+    });
+
     // get specific bike
     app.get("/bikes/:id", async (req, res) => {
       const id = req.params.id;
