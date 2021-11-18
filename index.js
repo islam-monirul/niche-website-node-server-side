@@ -125,6 +125,19 @@ async function run() {
       const result = await ordersCollection.updateOne(filter, updateDoc);
       res.json(result);
     });
+
+    // delete order
+    app.delete("/deleteOrder/:id", async (req, res) => {
+      const id = reqs.params.id;
+      console.log("Delete order having id: ", id);
+
+      const query = { _id: ObjectId(id) };
+      const result = await ordersCollection.deleteOne(query);
+
+      console.log("Delete order: ", result);
+
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
