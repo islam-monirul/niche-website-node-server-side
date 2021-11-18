@@ -30,6 +30,7 @@ async function run() {
     const bikeCollection = database.collection("bikes");
     const usersCollection = database.collection("users");
     const ordersCollection = database.collection("orders");
+    const reviewsCollection = database.collection("happyClients");
 
     // get all bikes
     app.get("/bikes", async (req, res) => {
@@ -95,6 +96,15 @@ async function run() {
     app.post("/addProduct", async (req, res) => {
       const bike = req.body;
       const result = await bikeCollection.insertOne(bike);
+      console.log(result);
+      res.json(result);
+    });
+
+    // api for adding review
+    app.post("/addReview", async (req, res) => {
+      const review = req.body;
+      const result = await reviewsCollection.insertOne(review);
+
       console.log(result);
       res.json(result);
     });
