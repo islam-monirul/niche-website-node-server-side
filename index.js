@@ -79,6 +79,14 @@ async function run() {
       res.json(result);
     });
 
+    // api for adding product
+    app.post("/addProduct", async (req, res) => {
+      const bike = req.body;
+      const result = await bikeCollection.insertOne(bike);
+      console.log(result);
+      res.json(result);
+    });
+
     // api for storing user to database
     app.post("/adduser", async (req, res) => {
       const user = req.body;
