@@ -29,6 +29,7 @@ async function run() {
     const database = client.db("motoMaze");
     const bikeCollection = database.collection("bikes");
     const usersCollection = database.collection("users");
+    const ordersCollection = database.collection("orders");
 
     // get all bikes
     app.get("/bikes", async (req, res) => {
@@ -60,6 +61,16 @@ async function run() {
       }
 
       res.json({ admin: isAdmin });
+    });
+
+    // api for placing order
+    app.post("/placeorder", async (req, res) => {
+      const order = req.body;
+
+      const result = await ordersCollection.insertOne(order);
+
+      console.log(result);
+      res.json(result);
     });
 
     // api for storing user to database
