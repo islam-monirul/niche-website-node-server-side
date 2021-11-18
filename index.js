@@ -37,6 +37,12 @@ async function run() {
       res.send(bikes);
     });
 
+    // get all orders
+    app.get("/order", async (req, res) => {
+      const orders = await ordersCollection.find({}).toArray();
+      res.send(orders);
+    });
+
     // get specific bike
     app.get("/bikes/:id", async (req, res) => {
       const id = req.params.id;
