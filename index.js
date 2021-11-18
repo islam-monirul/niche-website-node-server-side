@@ -44,6 +44,12 @@ async function run() {
       res.send(orders);
     });
 
+    // get all reviews
+    app.get("/reviews", async (req, res) => {
+      const reviews = await reviewsCollection.find({}).toArray();
+      res.send(reviews);
+    });
+
     // get all orders of a customer
     app.get("/orders/:email", async (req, res) => {
       const email = req.params.email;
