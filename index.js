@@ -114,6 +114,17 @@ async function run() {
       const result = await usersCollection.updateOne(filter, updateDoc);
       res.json(result);
     });
+
+    // update order status
+    app.put("/updateorderStatus", async (req, res) => {
+      const order = req.body;
+      const filter = { _id: ObjectId(order.id) };
+
+      const updateDoc = { $set: { status: true } };
+
+      const result = await ordersCollection.updateOne(filter, updateDoc);
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
